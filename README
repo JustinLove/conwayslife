@@ -1,1 +1,9 @@
 This project was part of a random pair programming exercise at the 2009-11-03 ChicagoRuby meeting.  The exercise was Conway's game of life.  This version was completed by Justin Love and Dave Giunta in about two hours.
+
+What is particularly interesting about this implementation is that it actually operates on an infinite grid.  In certain places (especially live checking) the performance will suffer considerably for this, although that that might be addressed with some refactoring.
+
+The basic strategy is a coordinate-indexed hash table of interesting cells.  Cells are interesting if they have a neighbor.  A version that addressed the expensive live-checks might also treat live cells as interesting in order to combine storage.
+
+The table is created by iterating over live cells and incrementing the neighboor count around them.  Indexing the hash table by location allows you to have reasonable lookups of neighbor counts without allocating a finite grid.  Things can only happen to live cells or those dead cells next to live cells, so the process of calculating the neighbor counts also creates a list of the cells that have to be considered for births/deaths.
+
+As a special case, the locations of live cells are not put into the table, so if it has no neighbors, it will not even be put into the hash table, and will 'die' by not being considered for the next generation.
