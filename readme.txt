@@ -1,0 +1,1 @@
+This project was part of a random pair programming exercise at the 2009-11-03 ChicagoRuby meeting.  The exercise was Conway's game of life.  This version was completed by Justin Love and Dave Giunta in about two hours.
